@@ -1,0 +1,17 @@
+#!/bin/bash
+if [ $# -lt 1 ]
+	then 
+	echo -e 'Usage: phone searchfor [... searchfor]\n(You didnot tell me what you want to search for.)'
+	
+	else
+	for input in "$@"
+	do 
+	if [ "$input" = "$1" ]
+	then
+	same=$input
+	else
+	same=$same"|"$input
+	fi
+	done
+	egrep -i "($same)" mydata | awk -F '|' '{print "------>\n name: " $1 "\n address: " $2 "\n phone: " $3 "\n<------" }'
+fi
